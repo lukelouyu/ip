@@ -15,6 +15,10 @@ public class Task {
         isDone = true;
     }
 
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

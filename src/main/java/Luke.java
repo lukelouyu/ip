@@ -41,6 +41,16 @@ public class Luke {
                 System.out.println("  " + task);
                 break;
 
+            case "unmark":
+                int unmarkTaskNumber = Integer.parseInt(command.substring(7));
+                Task unmarkTask = tasks[unmarkTaskNumber - 1];
+
+                unmarkTask.markAsNotDone();
+
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + unmarkTask);
+                break;
+
             default:
                 tasks[taskCount] = new Task(command);
                 taskCount++;
