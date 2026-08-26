@@ -7,7 +7,7 @@ public class Luke {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String[] tasks = new String[MAX_TASKS];
+        Task[] tasks = new Task[MAX_TASKS];
         int taskCount = 0;
 
         System.out.println(HORIZONTAL_LINE);
@@ -27,7 +27,7 @@ public class Luke {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
             } else {
-                tasks[taskCount] = command;
+                tasks[taskCount] = new Task(command);
                 taskCount++;
 
                 System.out.println("added: " + command);
