@@ -20,8 +20,8 @@ Official standard: <https://se-education.org/guides/conventions/java/intermediat
 - Use four spaces, never tabs. Keep lines below the 120-character hard limit and aim for fewer than 110 characters.
   Indent wrapped lines eight spaces beyond their parent line and wrap at readable, high-level boundaries.
 - Use K&R braces. Always brace loop and conditional bodies, and put conditional bodies on separate lines.
-- Indent `case` and `default` labels one level inside their `switch`, and indent their statements one further level.
-  End each case with `break` or use an explicit `// Fallthrough` comment when fallthrough is intentional.
+- For this project, align `case` and `default` labels with their enclosing `switch`, and indent their statements one
+  level further. End each case with `break` or use an explicit `// Fallthrough` comment when fallthrough is intentional.
 - Put spaces around operators and after Java keywords, commas, and `for`-loop semicolons. Separate logical units with
   one blank line.
 - Attach array brackets to the type. Initialize variables at declaration when practical and declare them in the
