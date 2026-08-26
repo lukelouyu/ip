@@ -1,13 +1,28 @@
+import java.util.Scanner;
+
 public class Luke {
     private static final int HORIZONTAL_LINE_LENGTH = 60;
     private static final String HORIZONTAL_LINE = createHorizontalLine();
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Luke\n" + getLogo());
         System.out.println("What can I do for you?");
         System.out.println(HORIZONTAL_LINE);
 
+        String command = input.nextLine();
+
+        while (!command.equals("bye")) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println(command);
+            System.out.println(HORIZONTAL_LINE);
+
+            command = input.nextLine();
+        }
+
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
     }
