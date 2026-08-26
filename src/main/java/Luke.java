@@ -20,21 +20,36 @@ public class Luke {
         while (!command.equals("bye")) {
             System.out.println(HORIZONTAL_LINE);
 
-            if (command.equals("list")) {
+            String commandWord = command.split(" ")[0];
+
+            switch (commandWord) {
+            case "list":
                 System.out.println("Here are the tasks in your list:");
 
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
-            } else {
+                break;
+
+            case "mark":
+                int taskNumber = Integer.parseInt(command.substring(5));
+                Task task = tasks[taskNumber - 1];
+
+                task.markAsDone();
+
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + task);
+                break;
+
+            default:
                 tasks[taskCount] = new Task(command);
                 taskCount++;
 
                 System.out.println("added: " + command);
+                break;
             }
 
             System.out.println(HORIZONTAL_LINE);
-
             command = input.nextLine();
         }
 
