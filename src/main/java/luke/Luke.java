@@ -6,6 +6,8 @@ import java.util.Scanner;
  * Runs the Luke chatbot's command-line interface.
  */
 public class Luke {
+    private static final int MARK_INDEX = 5;
+    private static final int UNMARK_INDEX = 7;
     private static final int HORIZONTAL_LINE_LENGTH = 60;
     private static final String HORIZONTAL_LINE = createHorizontalLine();
     private static final int MAX_TASKS = 100;
@@ -33,40 +35,40 @@ public class Luke {
             String commandWord = command.split(" ")[0];
 
             switch (commandWord) {
-                case "list":
-                    System.out.println("Here are the tasks in your list:");
+            case "list":
+                System.out.println("Here are the tasks in your list:");
 
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
-                    }
-                    break;
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                break;
 
-                case "mark":
-                    int taskNumber = Integer.parseInt(command.substring(5));
-                    Task task = tasks[taskNumber - 1];
+            case "mark":
+                int taskNumber = Integer.parseInt(command.substring(MARK_INDEX));
+                Task task = tasks[taskNumber - 1];
 
-                    task.markAsDone();
+                task.markAsDone();
 
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + task);
-                    break;
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + task);
+                break;
 
-                case "unmark":
-                    int unmarkTaskNumber = Integer.parseInt(command.substring(7));
-                    Task unmarkTask = tasks[unmarkTaskNumber - 1];
+            case "unmark":
+                int unmarkTaskNumber = Integer.parseInt(command.substring(UNMARK_INDEX));
+                Task unmarkTask = tasks[unmarkTaskNumber - 1];
 
-                    unmarkTask.markAsNotDone();
+                unmarkTask.markAsNotDone();
 
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + unmarkTask);
-                    break;
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + unmarkTask);
+                break;
 
-                default:
-                    tasks[taskCount] = new Task(command);
-                    taskCount++;
+            default:
+                tasks[taskCount] = new Task(command);
+                taskCount++;
 
-                    System.out.println("added: " + command);
-                    break;
+                System.out.println("added: " + command);
+                break;
             }
 
             System.out.println(HORIZONTAL_LINE);
