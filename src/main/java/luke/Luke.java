@@ -15,9 +15,6 @@ public class Luke {
     private static final String COMMAND_UNMARK = "unmark";
 
     private static final String COMMAND_SEPARATOR = " ";
-    private static final String DEADLINE_SEPARATOR = " /by ";
-    private static final String EVENT_FROM_SEPARATOR = " /from ";
-    private static final String EVENT_TO_SEPARATOR = " /to ";
 
     private static final int SPLIT_LIMIT = 2;
     private static final int HORIZONTAL_LINE_LENGTH = 60;
@@ -50,38 +47,21 @@ public class Luke {
                 break;
 
             case COMMAND_TODO:
-                String todoDescription = command.substring(
-                        COMMAND_TODO.length() + COMMAND_SEPARATOR.length());
-                tasks[taskCount] = new Todo(todoDescription);
+                tasks[taskCount] = Parser.parseTodo(command);
                 taskCount++;
 
                 showTaskAdded(tasks[taskCount - 1], taskCount);
                 break;
 
             case COMMAND_DEADLINE:
-                String[] deadlineParts = command.substring(
-                                COMMAND_DEADLINE.length() + COMMAND_SEPARATOR.length())
-                        .split(DEADLINE_SEPARATOR, SPLIT_LIMIT);
-                String deadlineDescription = deadlineParts[0];
-                String by = deadlineParts[1];
-
-                tasks[taskCount] = new Deadline(deadlineDescription, by);
+                tasks[taskCount] = Parser.parseDeadline(command);
                 taskCount++;
 
                 showTaskAdded(tasks[taskCount - 1], taskCount);
                 break;
 
             case COMMAND_EVENT:
-                String[] eventParts = command.substring(
-                                COMMAND_EVENT.length() + COMMAND_SEPARATOR.length())
-                        .split(EVENT_FROM_SEPARATOR, SPLIT_LIMIT);
-                String eventDescription = eventParts[0];
-
-                String[] timeParts = eventParts[1].split(" /to ", 2);
-                String from = timeParts[0];
-                String to = timeParts[1];
-
-                tasks[taskCount] = new Event(eventDescription, from, to);
+                tasks[taskCount] = Parser.parseEvent(command);
                 taskCount++;
 
                 showTaskAdded(tasks[taskCount - 1], taskCount);
