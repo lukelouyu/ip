@@ -43,6 +43,45 @@ public class Luke {
                 }
                 break;
 
+            case "todo":
+                String todoDescription = command.substring(5);
+                tasks[taskCount] = new Todo(todoDescription);
+                taskCount++;
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                break;
+
+            case "deadline":
+                String[] deadlineParts = command.substring(9).split(" /by ", 2);
+                String deadlineDescription = deadlineParts[0];
+                String by = deadlineParts[1];
+
+                tasks[taskCount] = new Deadline(deadlineDescription, by);
+                taskCount++;
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                break;
+
+            case "event":
+                String[] eventParts = command.substring(6).split(" /from ", 2);
+                String eventDescription = eventParts[0];
+
+                String[] timeParts = eventParts[1].split(" /to ", 2);
+                String from = timeParts[0];
+                String to = timeParts[1];
+
+                tasks[taskCount] = new Event(eventDescription, from, to);
+                taskCount++;
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                break;
+
             case "mark":
                 int taskNumber = Integer.parseInt(command.substring(MARK_INDEX));
                 Task task = tasks[taskNumber - 1];
