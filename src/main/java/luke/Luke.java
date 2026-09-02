@@ -36,11 +36,7 @@ public class Luke {
 
             switch (commandWord) {
             case "list":
-                System.out.println("Here are the tasks in your list:");
-
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
+                showTaskList(tasks, taskCount);
                 break;
 
             case "todo":
@@ -117,6 +113,14 @@ public class Luke {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void showTaskList(Task[] tasks, int taskCount) {
+        System.out.println("Here are the tasks in your list:");
+
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + ". " + tasks[i]);
+        }
     }
 
     private static String createHorizontalLine() {
