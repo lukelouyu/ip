@@ -34,70 +34,84 @@ public class Luke {
 
         while (!command.equals("bye")) {
             Ui.showHorizontalLine();
-
-            String commandWord =
-                    command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
-
-            switch (commandWord) {
-            case COMMAND_LIST:
-                Ui.showTaskList(tasks, taskCount);
-                break;
-
-            case COMMAND_TODO:
-                tasks[taskCount] = Parser.parseTodo(command);
-                taskCount++;
-
-                Ui.showTaskAdded(tasks[taskCount - 1], taskCount);
-                break;
-
-            case COMMAND_DEADLINE:
-                tasks[taskCount] = Parser.parseDeadline(command);
-                taskCount++;
-
-                Ui.showTaskAdded(tasks[taskCount - 1], taskCount);
-                break;
-
-            case COMMAND_EVENT:
-                tasks[taskCount] = Parser.parseEvent(command);
-                taskCount++;
-
-                Ui.showTaskAdded(tasks[taskCount - 1], taskCount);
-                break;
-
-            case COMMAND_MARK:
-                int taskNumber = Integer.parseInt(command.substring(
-                        COMMAND_MARK.length()
-                                + COMMAND_SEPARATOR.length()));
-
-                Task task = tasks[taskNumber - 1];
-                task.markAsDone();
-
-                Ui.showTaskMarked(task);
-                break;
-
-            case COMMAND_UNMARK:
-                int unmarkTaskNumber = Integer.parseInt(command.substring(
-                        COMMAND_UNMARK.length()
-                                + COMMAND_SEPARATOR.length()));
-
-                Task unmarkTask = tasks[unmarkTaskNumber - 1];
-                unmarkTask.markAsNotDone();
-
-                Ui.showTaskUnmarked(unmarkTask);
-                break;
-
-            default:
-                tasks[taskCount] = new Task(command);
-                taskCount++;
-
-                System.out.println("added: " + command);
-                break;
-            }
-
+            taskCount = processCommand(command, tasks, taskCount);
             Ui.showHorizontalLine();
             command = input.nextLine();
         }
 
         Ui.showGoodbye();
+    }
+
+    private static int processCommand(String command, Task[] tasks,
+            int taskCount) {
+        String commandWord =
+                command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
+
+        switch (commandWord) {
+        case COMMAND_LIST:
+            Ui.showTaskList(tasks, taskCount);
+            break;
+        case COMMAND_TODO:
+            taskCount = addTask(tasks, taskCount, Parser.parseTodo(command));
+            break;
+        case COMMAND_DEADLINE:
+            taskCount = addTask(tasks, taskCount,
+                    Parser.parseDeadline(command));
+            break;
+        case COMMAND_EVENT:
+            taskCount = addTask(tasks, taskCount, Parser.parseEvent(command));
+            break;
+        case COMMAND_MARK:
+            markTask(command, tasks);
+            break;
+        case COMMAND_UNMARK:
+            unmarkTask(command, tasks);
+            break;
+        default:
+            taskCount = addUnrecognizedCommandAsTask(command, tasks,
+                    taskCount);
+            break;
+        }
+
+        return taskCount;
+    }
+
+    private static int addTask(Task[] tasks, int taskCount, Task task) {
+        tasks[taskCount] = task;
+        int updatedTaskCount = taskCount + 1;
+
+        Ui.showTaskAdded(task, updatedTaskCount);
+        return updatedTaskCount;
+    }
+
+    private static void markTask(String command, Task[] tasks) {
+        int taskNumber = parseTaskNumber(command, COMMAND_MARK);
+        Task task = tasks[taskNumber - 1];
+
+        task.markAsDone();
+        Ui.showTaskMarked(task);
+    }
+
+    private static void unmarkTask(String command, Task[] tasks) {
+        int taskNumber = parseTaskNumber(command, COMMAND_UNMARK);
+        Task task = tasks[taskNumber - 1];
+
+        task.markAsNotDone();
+        Ui.showTaskUnmarked(task);
+    }
+
+    private static int parseTaskNumber(String command, String commandWord) {
+        String taskNumber = command.substring(
+                commandWord.length() + COMMAND_SEPARATOR.length());
+
+        return Integer.parseInt(taskNumber);
+    }
+
+    private static int addUnrecognizedCommandAsTask(String command,
+            Task[] tasks, int taskCount) {
+        tasks[taskCount] = new Task(command);
+        System.out.println("added: " + command);
+
+        return taskCount + 1;
     }
 }
