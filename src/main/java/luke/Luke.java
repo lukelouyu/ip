@@ -13,9 +13,6 @@ public class Luke {
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
 
-    private static final String COMMAND_SEPARATOR = " ";
-
-    private static final int SPLIT_LIMIT = 2;
     private static final int MAX_TASKS = 100;
 
     /**
@@ -23,7 +20,7 @@ public class Luke {
      *
      * @param args Command-line arguments; not used.
      */
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Task[] tasks = new Task[MAX_TASKS];
         int taskCount = 0;
@@ -44,8 +41,7 @@ public class Luke {
 
     private static int processCommand(String command, Task[] tasks,
             int taskCount) {
-        String commandWord =
-                command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
+        String commandWord = Parser.parseCommandWord(command);
 
         switch (commandWord) {
         case COMMAND_LIST:
@@ -85,7 +81,7 @@ public class Luke {
     }
 
     private static void markTask(String command, Task[] tasks) {
-        int taskNumber = parseTaskNumber(command, COMMAND_MARK);
+        int taskNumber = Parser.parseTaskNumber(command, COMMAND_MARK);
         Task task = tasks[taskNumber - 1];
 
         task.markAsDone();
@@ -93,22 +89,15 @@ public class Luke {
     }
 
     private static void unmarkTask(String command, Task[] tasks) {
-        int taskNumber = parseTaskNumber(command, COMMAND_UNMARK);
+        int taskNumber = Parser.parseTaskNumber(command, COMMAND_UNMARK);
         Task task = tasks[taskNumber - 1];
 
         task.markAsNotDone();
         Ui.showTaskUnmarked(task);
     }
 
-    private static int parseTaskNumber(String command, String commandWord) {
-        String taskNumber = command.substring(
-                commandWord.length() + COMMAND_SEPARATOR.length());
-
-        return Integer.parseInt(taskNumber);
-    }
-
     private static int addUnrecognizedCommandAsTask(String command,
-            Task[] tasks, int taskCount) {
+                                                    Task[] tasks, int taskCount) {
         tasks[taskCount] = new Task(command);
         System.out.println("added: " + command);
 

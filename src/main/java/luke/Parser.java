@@ -70,4 +70,28 @@ public class Parser {
 
         return new Event(description, from, to);
     }
+
+    /**
+     * Extracts the command word from a user command.
+     *
+     * @param command User command.
+     * @return Command word.
+     */
+    public static String parseCommandWord(String command) {
+        return command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
+    }
+
+    /**
+     * Extracts the task number from a mark or unmark command.
+     *
+     * @param command     User command.
+     * @param commandWord Command word.
+     * @return Task number.
+     */
+    public static int parseTaskNumber(String command, String commandWord) {
+        String taskNumber = command.substring(
+                commandWord.length() + COMMAND_SEPARATOR.length());
+
+        return Integer.parseInt(taskNumber);
+    }
 }
