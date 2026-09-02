@@ -32,6 +32,16 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 For every Java implementation, refactoring, or review task, load and follow the project skill at
 `.agents/skills/seedu-java-coding-standard/SKILL.md`.
 
+## UI regression testing
+
+After every production code change:
+
+1. Review `test/ui-test-plan.md` and update it when the change adds or alters user-visible behavior.
+2. Invoke the project skill at `.agents/skills/test-ui/SKILL.md` and run the complete UI test plan.
+
+Preserve the test skill's fail-fast behavior. Do not weaken expected output or change application behavior merely to
+make a failing test pass.
+
 ## Git
 
 Before creating commits or branches, load and follow the project skill at
