@@ -7,6 +7,14 @@ public class Ui {
     private static final int HORIZONTAL_LINE_LENGTH = 60;
     private static final String HORIZONTAL_LINE = createHorizontalLine();
 
+    private static String getLogo() {
+        return " _          _        \n"
+                + "| |   _   _| | _____ \n"
+                + "| |  | | | | |/ / _ \\\n"
+                + "| |__| |_| |   <  __/\n"
+                + "|_____\\__,_|_|\\_\\___|\n";
+    }
+
     public static void showWelcome() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Luke\n" + getLogo());
@@ -58,12 +66,8 @@ public class Ui {
         return horizontalLine.toString();
     }
 
-    private static String getLogo() {
-        return " _          _        \n"
-                + "| |   _   _| | _____ \n"
-                + "| |  | | | | |/ / _ \\\n"
-                + "| |__| |_| |   <  __/\n"
-                + "|_____\\__,_|_|\\_\\___|\n";
+    public static void showUnrecognizedCommand() {
+        System.out.println("Sorry, your command is unrecognized.");
     }
 
 }

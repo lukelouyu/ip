@@ -64,8 +64,7 @@ public class Luke {
             unmarkTask(command, tasks);
             break;
         default:
-            taskCount = addUnrecognizedCommandAsTask(command, tasks,
-                    taskCount);
+            Ui.showUnrecognizedCommand();
             break;
         }
 
@@ -96,11 +95,4 @@ public class Luke {
         Ui.showTaskUnmarked(task);
     }
 
-    private static int addUnrecognizedCommandAsTask(String command,
-                                                    Task[] tasks, int taskCount) {
-        tasks[taskCount] = new Task(command);
-        System.out.println("added: " + command);
-
-        return taskCount + 1;
-    }
 }
