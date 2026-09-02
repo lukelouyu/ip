@@ -44,9 +44,7 @@ public class Luke {
                 tasks[taskCount] = new Todo(todoDescription);
                 taskCount++;
 
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                showTaskAdded(tasks[taskCount - 1], taskCount);
                 break;
 
             case "deadline":
@@ -57,9 +55,7 @@ public class Luke {
                 tasks[taskCount] = new Deadline(deadlineDescription, by);
                 taskCount++;
 
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                showTaskAdded(tasks[taskCount - 1], taskCount);
                 break;
 
             case "event":
@@ -73,9 +69,7 @@ public class Luke {
                 tasks[taskCount] = new Event(eventDescription, from, to);
                 taskCount++;
 
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                showTaskAdded(tasks[taskCount - 1], taskCount);
                 break;
 
             case "mark":
@@ -121,6 +115,12 @@ public class Luke {
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + tasks[i]);
         }
+    }
+
+    private static void showTaskAdded(Task task, int taskCount) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     private static String createHorizontalLine() {
