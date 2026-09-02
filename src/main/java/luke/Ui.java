@@ -15,6 +15,9 @@ public class Ui {
                 + "|_____\\__,_|_|\\_\\___|\n";
     }
 
+    /**
+     * Shows the welcome message and logo.
+     */
     public static void showWelcome() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Luke\n" + getLogo());
@@ -22,12 +25,21 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Shows the goodbye message.
+     */
     public static void showGoodbye() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Shows all tasks currently stored in the task list.
+     *
+     * @param tasks     Tasks to display.
+     * @param taskCount Number of stored tasks.
+     */
     public static void showTaskList(Task[] tasks, int taskCount) {
         System.out.println("Here are the tasks in your list:");
 
@@ -36,22 +48,41 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows confirmation that a task was added.
+     *
+     * @param task      Added task.
+     * @param taskCount Updated number of stored tasks.
+     */
     public static void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Shows confirmation that a task was marked as done.
+     *
+     * @param task Marked task.
+     */
     public static void showTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
+    /**
+     * Shows confirmation that a task was marked as not done.
+     *
+     * @param task Unmarked task.
+     */
     public static void showTaskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
 
+    /**
+     * Shows a horizontal line separating output sections.
+     */
     public static void showHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
     }
@@ -66,6 +97,9 @@ public class Ui {
         return horizontalLine.toString();
     }
 
+    /**
+     * Shows a message for an unrecognized command.
+     */
     public static void showUnrecognizedCommand() {
         System.out.println("Sorry, your command is unrecognized.");
     }

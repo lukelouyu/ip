@@ -1,5 +1,8 @@
 package luke;
 
+/**
+ * Represents a task that must be completed by a specific date or time.
+ */
 public class Deadline extends Task {
     private final String by;
 

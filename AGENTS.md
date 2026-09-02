@@ -29,8 +29,11 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 ## Java coding standard
 
-For every Java implementation, refactoring, or review task, load and follow the project skill at
+All Java code in this project, including production and test code, must follow the project skill at
 `.agents/skills/seedu-java-coding-standard/SKILL.md`.
+
+Before creating, editing, refactoring, or reviewing any Java code, load and follow that skill. Treat its rules as
+mandatory for the entire Java codebase, using the Google Java Style Guide only for topics the skill does not cover.
 
 ## UI regression testing
 
