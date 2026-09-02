@@ -35,10 +35,7 @@ public class Luke {
         Task[] tasks = new Task[MAX_TASKS];
         int taskCount = 0;
 
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Luke\n" + getLogo());
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        WelcomeMessage();
 
         String command = input.nextLine();
 
@@ -124,10 +121,22 @@ public class Luke {
             command = input.nextLine();
         }
 
+        ByeMessage();
+    }
+
+    private static void WelcomeMessage() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Hello! I'm Luke\n" + getLogo());
+        System.out.println("What can I do for you?");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void ByeMessage() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
     }
+
 
     private static void showTaskList(Task[] tasks, int taskCount) {
         System.out.println("Here are the tasks in your list:");
