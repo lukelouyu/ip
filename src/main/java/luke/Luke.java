@@ -18,6 +18,7 @@ public class Luke {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_DELETE = "delete";
 
     /**
      * Starts Luke and processes commands until the user exits.
@@ -85,6 +86,12 @@ public class Luke {
             int unmarkNumber = Parser.parseTaskNumber(command, COMMAND_UNMARK);
             Task unmarkedTask = tasks.unmark(unmarkNumber);
             Ui.showTaskUnmarked(unmarkedTask);
+            break;
+
+        case COMMAND_DELETE:
+            int deleteNumber = Parser.parseTaskNumber(command, COMMAND_DELETE);
+            Task deletedTask = tasks.delete(deleteNumber);
+            Ui.showTaskDeleted(deletedTask, tasks.getTaskCount());
             break;
 
         default:

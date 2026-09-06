@@ -18,7 +18,7 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
-    
+
     public Task delete(int taskNumber) throws LukeException {
         validateTaskNumber(taskNumber);
 
@@ -42,9 +42,13 @@ public class TaskList {
     }
 
     private void validateTaskNumber(int taskNumber) throws LukeException {
+        if (tasks.isEmpty()) {
+            throw new LukeException("There are no tasks in the list.");
+        }
+
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new LukeException(
-                    "That task number does not exist. Please choose the number between 1 and "
+                    "That task number does not exist. Please choose a number between 1 and "
                             + tasks.size() + ".");
         }
     }
