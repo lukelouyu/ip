@@ -69,7 +69,7 @@ public class Parser {
         String[] deadlineParts = commandDetails.split(
                 DEADLINE_SEPARATOR, SPLIT_LIMIT);
 
-        if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+        if (deadlineParts.length < SPLIT_LIMIT || deadlineParts[1].trim().isEmpty()) {
             throw new LukeException(
                     "[WARNING] The deadline must include a /by date or time.");
         }
@@ -104,7 +104,7 @@ public class Parser {
         String[] eventParts = commandDetails.split(
                 EVENT_FROM_SEPARATOR, SPLIT_LIMIT);
 
-        if (eventParts.length < 2) {
+        if (eventParts.length < SPLIT_LIMIT) {
             throw new LukeException(
                     "[WARNING] The event must include a /from start time.");
         }
@@ -120,7 +120,7 @@ public class Parser {
         String[] timeParts = eventTimeDetails.split(
                 EVENT_TO_SEPARATOR, SPLIT_LIMIT);
 
-        if (timeParts.length < 2) {
+        if (timeParts.length < SPLIT_LIMIT) {
             throw new LukeException(
                     "[WARNING] The event must include a /to end time.");
         }
