@@ -68,30 +68,35 @@ public class Luke {
         case COMMAND_TODO:
             Task todo = Parser.parseTodo(command);
             tasks.add(todo);
+            storage.save(tasks.getTasks(), tasks.getTaskCount());
             Ui.showTaskAdded(todo, tasks.getTaskCount());
             break;
 
         case COMMAND_DEADLINE:
             Task deadline = Parser.parseDeadline(command);
             tasks.add(deadline);
+            storage.save(tasks.getTasks(), tasks.getTaskCount());
             Ui.showTaskAdded(deadline, tasks.getTaskCount());
             break;
 
         case COMMAND_EVENT:
             Task event = Parser.parseEvent(command);
             tasks.add(event);
+            storage.save(tasks.getTasks(), tasks.getTaskCount());
             Ui.showTaskAdded(event, tasks.getTaskCount());
             break;
 
         case COMMAND_MARK:
             int markNumber = Parser.parseTaskNumber(command, COMMAND_MARK);
             Task markedTask = tasks.mark(markNumber);
+            storage.save(tasks.getTasks(), tasks.getTaskCount());
             Ui.showTaskMarked(markedTask);
             break;
 
         case COMMAND_UNMARK:
             int unmarkNumber = Parser.parseTaskNumber(command, COMMAND_UNMARK);
             Task unmarkedTask = tasks.unmark(unmarkNumber);
+            storage.save(tasks.getTasks(), tasks.getTaskCount());
             Ui.showTaskUnmarked(unmarkedTask);
             break;
 

@@ -2,6 +2,8 @@ package luke.storage;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import luke.task.Task;
 
@@ -28,6 +30,13 @@ public class Storage {
      * @throws IOException If the data file cannot be written.
      */
     public void save(Task[] tasks, int taskCount) throws IOException {
+        Path path = Path.of(filePath);
+        Path parentDirectory = path.getParent();
+
+        if (parentDirectory != null) {
+            Files.createDirectories(parentDirectory);
+        }
+
         FileWriter writer = new FileWriter(filePath);
 
         for (int i = 0; i < taskCount; i++) {
