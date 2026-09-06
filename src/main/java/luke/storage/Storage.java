@@ -59,8 +59,13 @@ public class Storage {
      * @throws IOException If the data file cannot be read.
      */
     public void load(TaskList tasks) throws IOException {
-        File dataFile = new File(filePath);
-        Scanner scanner = new Scanner(dataFile);
+        Path path = Path.of(filePath);
+
+        if (!Files.exists(path)) {
+            return;
+        }
+
+        Scanner scanner = new Scanner(path);
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
