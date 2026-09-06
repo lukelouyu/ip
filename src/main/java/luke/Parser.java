@@ -16,6 +16,23 @@ public class Parser {
     private static final int SPLIT_LIMIT = 2;
 
     /**
+     * Extracts the command word from a user command.
+     *
+     * @param command User command.
+     * @return Command word.
+     * @throws LukeException If the command is empty.
+     */
+    public static String parseCommandWord(String command) throws LukeException {
+        String trimmedCommand = command.trim();
+
+        if (trimmedCommand.isEmpty()) {
+            throw new LukeException("Please enter a command.");
+        }
+
+        return trimmedCommand.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
+    }
+
+    /**
      * Parses a todo command.
      *
      * @param command User command.
@@ -150,13 +167,4 @@ public class Parser {
         }
     }
 
-    /**
-     * Extracts the command word from a user command.
-     *
-     * @param command User command.
-     * @return Command word.
-     */
-    public static String parseCommandWord(String command) {
-        return command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
-    }
 }
