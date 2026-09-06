@@ -110,6 +110,7 @@ public class Luke {
         case COMMAND_DELETE:
             int deleteNumber = Parser.parseTaskNumber(command, COMMAND_DELETE);
             Task deletedTask = tasks.delete(deleteNumber);
+            storage.save(tasks.getTasks(), tasks.getTaskCount());
             Ui.showTaskDeleted(deletedTask, tasks.getTaskCount());
             break;
 
