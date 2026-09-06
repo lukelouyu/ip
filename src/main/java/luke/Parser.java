@@ -107,6 +107,23 @@ public class Parser {
         return new Event(description, from, to);
     }
 
+    public static int parseTaskNumber(String command, String commandWord)
+            throws LukeException {
+        String taskNumberText = command.substring(commandWord.length()).trim();
+
+        if (taskNumberText.isEmpty()) {
+            throw new LukeException(
+                    "Please specify a task number.");
+        }
+
+        try {
+            return Integer.parseInt(taskNumberText);
+        } catch (NumberFormatException e) {
+            throw new LukeException(
+                    "The task number must be a valid number.");
+        }
+    }
+
     /**
      * Extracts the command word from a user command.
      *
@@ -117,17 +134,5 @@ public class Parser {
         return command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
     }
 
-    /**
-     * Extracts the task number from a mark or unmark command.
-     *
-     * @param command     User command.
-     * @param commandWord Command word.
-     * @return Task number.
-     */
-    public static int parseTaskNumber(String command, String commandWord) {
-        String taskNumber = command.substring(
-                commandWord.length() + COMMAND_SEPARATOR.length());
 
-        return Integer.parseInt(taskNumber);
-    }
 }
