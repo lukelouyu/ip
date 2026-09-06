@@ -26,4 +26,11 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toDataString() {
+        String status = isDone() ? "1" : "0";
+
+        return "D | " + status + " | " + getDescription() + " | " + by;
+    }
 }

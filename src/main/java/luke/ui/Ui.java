@@ -39,10 +39,15 @@ public class Ui {
     /**
      * Shows all tasks currently stored in the task list.
      *
-     * @param tasks     Tasks to display.
+     * @param tasks Tasks to display.
      * @param taskCount Number of stored tasks.
      */
     public static void showTaskList(Task[] tasks, int taskCount) {
+        if (taskCount == 0) {
+            System.out.println("There are no tasks in your list.");
+            return;
+        }
+
         System.out.println("Here are the tasks in your list:");
 
         for (int i = 0; i < taskCount; i++) {

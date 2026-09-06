@@ -30,4 +30,14 @@ public class Event extends Task {
         return super.toString()
                 + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toDataString() {
+        String status = isDone() ? "1" : "0";
+
+        return "E | " + status
+                + " | " + getDescription()
+                + " | " + from
+                + " | " + to;
+    }
 }

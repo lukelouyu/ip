@@ -20,6 +20,31 @@ public abstract class Task {
     protected abstract String getTypeIcon();
 
     /**
+     * Returns the task in the format used for data storage.
+     *
+     * @return String representation of the task for storage.
+     */
+    public abstract String toDataString();
+
+    /**
+     * Returns the task description.
+     *
+     * @return Description of the task.
+     */
+    protected String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns whether the task has been completed.
+     *
+     * @return True if the task is completed.
+     */
+    protected boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * Returns the icon that represents the task's completion status.
      *
      * @return {@code X} when the task is done, or a space otherwise.
