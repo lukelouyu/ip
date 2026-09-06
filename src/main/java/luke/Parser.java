@@ -32,21 +32,29 @@ public class Parser {
         return new Todo(description);
     }
 
-    /**
-     * Parses a deadline command.
-     *
-     * @param command User command.
-     * @return Parsed deadline.
-     */
-    public static Deadline parseDeadline(String command) {
-        String commandDetails = command.substring(
-                COMMAND_DEADLINE.length() + COMMAND_SEPARATOR.length());
+    public static Deadline parseDeadline(String command) throws LukeException {
+        String commandDetails = command.substring(COMMAND_DEADLINE.length()).trim();
+
+        if (commandDetails.isEmpty()) {
+            throw new LukeException(
+                    "The description of a deadline cannot be empty.");
+        }
 
         String[] deadlineParts = commandDetails.split(
                 DEADLINE_SEPARATOR, SPLIT_LIMIT);
 
-        String description = deadlineParts[0];
-        String by = deadlineParts[1];
+        if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+            throw new LukeException(
+                    "The deadline must include a /by date or time.");
+        }
+
+        String description = deadlineParts[0].trim();
+        String by = deadlineParts[1].trim();
+
+        if (description.isEmpty()) {
+            throw new LukeException(
+                    "The description of a deadline cannot be empty.");
+        }
 
         return new Deadline(description, by);
     }
