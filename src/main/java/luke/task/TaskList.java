@@ -18,6 +18,12 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
+    
+    public Task delete(int taskNumber) throws LukeException {
+        validateTaskNumber(taskNumber);
+
+        return tasks.remove(taskNumber - 1);
+    }
 
     public Task mark(int taskNumber) throws LukeException {
         validateTaskNumber(taskNumber);
