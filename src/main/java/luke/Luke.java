@@ -1,9 +1,12 @@
 package luke;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 import luke.exception.LukeException;
 import luke.parser.Parser;
+import luke.storage.Storage;
 import luke.task.Task;
 import luke.task.TaskList;
 import luke.ui.Ui;
@@ -27,6 +30,8 @@ public class Luke {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         TaskList tasks = new TaskList();
+        Storage storage = new Storage(
+                Path.of("data", "luke.txt").toString());
 
         Ui.showWelcome();
 
