@@ -1,7 +1,7 @@
 package luke;
 
 /**
- * Parses user commands into task objects.
+ * Parses user commands into task objects and command parameters.
  */
 public class Parser {
     private static final String COMMAND_TODO = "todo";
@@ -9,21 +9,43 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
 
     private static final String COMMAND_SEPARATOR = " ";
-    private static final String DEADLINE_SEPARATOR = " /by ";
-    private static final String EVENT_FROM_SEPARATOR = " /from ";
-    private static final String EVENT_TO_SEPARATOR = " /to ";
+    private static final String DEADLINE_SEPARATOR = "/by";
+    private static final String EVENT_FROM_SEPARATOR = "/from";
+    private static final String EVENT_TO_SEPARATOR = "/to";
 
     private static final int SPLIT_LIMIT = 2;
+
+    /**
+     * Extracts the command word from a user command.
+     *
+     * @param command User command.
+     * @return Command word.
+     * @throws LukeException If the command is empty.
+     */
+    public static String parseCommandWord(String command) throws LukeException {
+        String trimmedCommand = command.trim();
+
+        if (trimmedCommand.isEmpty()) {
+            throw new LukeException("Please enter a command.");
+        }
+
+        return trimmedCommand.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
+    }
 
     /**
      * Parses a todo command.
      *
      * @param command User command.
      * @return Parsed todo.
+     * @throws LukeException If the todo description is empty.
      */
-    public static Todo parseTodo(String command) {
-        String description = command.substring(
-                COMMAND_TODO.length() + COMMAND_SEPARATOR.length());
+    public static Todo parseTodo(String command) throws LukeException {
+        String description = command.substring(COMMAND_TODO.length()).trim();
+
+        if (description.isEmpty()) {
+            throw new LukeException(
+                    "The description of a todo cannot be empty.");
+        }
 
         return new Todo(description);
     }
@@ -33,16 +55,32 @@ public class Parser {
      *
      * @param command User command.
      * @return Parsed deadline.
+     * @throws LukeException If the description or deadline is missing.
      */
-    public static Deadline parseDeadline(String command) {
+    public static Deadline parseDeadline(String command) throws LukeException {
         String commandDetails = command.substring(
-                COMMAND_DEADLINE.length() + COMMAND_SEPARATOR.length());
+                COMMAND_DEADLINE.length()).trim();
+
+        if (commandDetails.isEmpty()) {
+            throw new LukeException(
+                    "The description of a deadline cannot be empty.");
+        }
 
         String[] deadlineParts = commandDetails.split(
                 DEADLINE_SEPARATOR, SPLIT_LIMIT);
 
-        String description = deadlineParts[0];
-        String by = deadlineParts[1];
+        if (deadlineParts.length < SPLIT_LIMIT || deadlineParts[1].trim().isEmpty()) {
+            throw new LukeException(
+                    "The deadline must include a /by date or time.");
+        }
+
+        String description = deadlineParts[0].trim();
+        String by = deadlineParts[1].trim();
+
+        if (description.isEmpty()) {
+            throw new LukeException(
+                    "The description of a deadline cannot be empty.");
+        }
 
         return new Deadline(description, by);
     }
@@ -52,46 +90,80 @@ public class Parser {
      *
      * @param command User command.
      * @return Parsed event.
+     * @throws LukeException If the description, start time, or end time is missing.
      */
-    public static Event parseEvent(String command) {
+    public static Event parseEvent(String command) throws LukeException {
         String commandDetails = command.substring(
-                COMMAND_EVENT.length() + COMMAND_SEPARATOR.length());
+                COMMAND_EVENT.length()).trim();
+
+        if (commandDetails.isEmpty()) {
+            throw new LukeException(
+                    "The description of an event cannot be empty.");
+        }
 
         String[] eventParts = commandDetails.split(
                 EVENT_FROM_SEPARATOR, SPLIT_LIMIT);
 
-        String description = eventParts[0];
+        if (eventParts.length < SPLIT_LIMIT) {
+            throw new LukeException(
+                    "The event must include a /from start time.");
+        }
 
-        String[] timeParts = eventParts[1].split(
+        String description = eventParts[0].trim();
+        String eventTimeDetails = eventParts[1].trim();
+
+        if (description.isEmpty()) {
+            throw new LukeException(
+                    "The description of an event cannot be empty.");
+        }
+
+        String[] timeParts = eventTimeDetails.split(
                 EVENT_TO_SEPARATOR, SPLIT_LIMIT);
 
-        String from = timeParts[0];
-        String to = timeParts[1];
+        if (timeParts.length < SPLIT_LIMIT) {
+            throw new LukeException(
+                    "The event must include a /to end time.");
+        }
+
+        String from = timeParts[0].trim();
+        String to = timeParts[1].trim();
+
+        if (from.isEmpty()) {
+            throw new LukeException(
+                    "The event start time cannot be empty.");
+        }
+
+        if (to.isEmpty()) {
+            throw new LukeException(
+                    "The event end time cannot be empty.");
+        }
 
         return new Event(description, from, to);
     }
 
     /**
-     * Extracts the command word from a user command.
+     * Extracts a task number from a command.
      *
      * @param command User command.
-     * @return Command word.
+     * @param commandWord Command word, such as {@code mark} or {@code unmark}.
+     * @return Parsed task number.
+     * @throws LukeException If the task number is missing or is not a valid integer.
      */
-    public static String parseCommandWord(String command) {
-        return command.split(COMMAND_SEPARATOR, SPLIT_LIMIT)[0];
-    }
+    public static int parseTaskNumber(String command, String commandWord)
+            throws LukeException {
+        String taskNumberText = command.substring(
+                commandWord.length()).trim();
 
-    /**
-     * Extracts the task number from a mark or unmark command.
-     *
-     * @param command     User command.
-     * @param commandWord Command word.
-     * @return Task number.
-     */
-    public static int parseTaskNumber(String command, String commandWord) {
-        String taskNumber = command.substring(
-                commandWord.length() + COMMAND_SEPARATOR.length());
+        if (taskNumberText.isEmpty()) {
+            throw new LukeException(
+                    "Please specify a task number.");
+        }
 
-        return Integer.parseInt(taskNumber);
+        try {
+            return Integer.parseInt(taskNumberText);
+        } catch (NumberFormatException e) {
+            throw new LukeException(
+                    "The task number must be a valid number.");
+        }
     }
 }

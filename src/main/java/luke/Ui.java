@@ -98,10 +98,12 @@ public class Ui {
     }
 
     /**
-     * Shows a message for an unrecognized command.
+     * Shows an error message.
+     *
+     * @param message Error message to display.
      */
-    public static void showUnrecognizedCommand() {
-        System.out.println("Sorry, your command is unrecognized.");
+    public static void showError(String message) {
+        System.out.println("[WARNING] " + message);
     }
 
 }
