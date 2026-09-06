@@ -90,9 +90,7 @@ public class Ui {
     private static String createHorizontalLine() {
         StringBuilder horizontalLine = new StringBuilder();
 
-        for (int i = 0; i < HORIZONTAL_LINE_LENGTH; i++) {
-            horizontalLine.append("_");
-        }
+        horizontalLine.append("_".repeat(HORIZONTAL_LINE_LENGTH));
 
         return horizontalLine.toString();
     }
