@@ -21,8 +21,13 @@ public class Event extends Task {
     }
 
     @Override
+    protected String getTypeIcon() {
+        return "E";
+    }
+
+    @Override
     public String toString() {
-        return "[E]" + super.toString()
+        return super.toString()
                 + " (from: " + from + " to: " + to + ")";
     }
 }

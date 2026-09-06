@@ -3,7 +3,7 @@ package luke;
 /**
  * Represents a task and whether it has been completed.
  */
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
 
@@ -12,10 +12,12 @@ public class Task {
      *
      * @param description Description of the task.
      */
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
+    protected abstract String getTypeIcon();
 
     /**
      * Returns the icon that represents the task's completion status.
@@ -42,6 +44,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] " + description;
     }
 }
