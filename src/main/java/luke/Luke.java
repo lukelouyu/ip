@@ -33,6 +33,12 @@ public class Luke {
         Storage storage = new Storage(
                 Path.of("data", "luke.txt").toString());
 
+        try {
+            storage.load(tasks);
+        } catch (IOException e) {
+            Ui.showError("Unable to load tasks.");
+        }
+
         Ui.showWelcome();
 
         String command = input.nextLine();
