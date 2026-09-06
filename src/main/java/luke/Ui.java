@@ -103,7 +103,7 @@ public class Ui {
      * @param message Error message to display.
      */
     public static void showError(String message) {
-        System.out.println(message);
+        System.out.println("[WARNING] " + message);
     }
 
 }

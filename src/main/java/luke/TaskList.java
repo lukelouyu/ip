@@ -60,7 +60,7 @@ public class TaskList {
     private void validateTaskNumber(int taskNumber) throws LukeException {
         if (taskNumber < 1 || taskNumber > taskCount) {
             throw new LukeException(
-                    "[WARNING] That task number does not exist. Please choose the number between 1 and " +
+                    "That task number does not exist. Please choose the number between 1 and " +
                             + taskCount + ".");
         }
     }
