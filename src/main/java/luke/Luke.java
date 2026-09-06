@@ -82,8 +82,8 @@ public class Luke {
             break;
 
         default:
-            Ui.showUnrecognizedCommand();
-            break;
+            throw new LukeException(
+                    "Sorry, your command is unrecognized.");
         }
     }
 
