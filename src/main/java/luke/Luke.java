@@ -1,15 +1,15 @@
 package luke;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Scanner;
-
 import luke.exception.LukeException;
 import luke.parser.Parser;
 import luke.storage.Storage;
 import luke.task.Task;
 import luke.task.TaskList;
 import luke.ui.Ui;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Scanner;
 
 /**
  * Runs the Luke chatbot's command-line interface.
@@ -41,9 +41,11 @@ public class Luke {
             Ui.showHorizontalLine();
 
             try {
-                processCommand(command, tasks);
+                processCommand(command, tasks, storage);
             } catch (LukeException e) {
                 Ui.showError(e.getMessage());
+            } catch (IOException e) {
+                Ui.showError("Unable to save tasks.");
             }
 
             Ui.showHorizontalLine();
@@ -53,8 +55,9 @@ public class Luke {
         Ui.showGoodbye();
     }
 
-    private static void processCommand(String command, TaskList tasks)
-            throws LukeException {
+    private static void processCommand(String command, TaskList tasks,
+                                       Storage storage)
+            throws LukeException, IOException {
         String commandWord = Parser.parseCommandWord(command);
 
         switch (commandWord) {
