@@ -18,7 +18,7 @@ public class Luke {
      *
      * @param args Command-line arguments; not used.
      */
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         TaskList tasks = new TaskList();
 
