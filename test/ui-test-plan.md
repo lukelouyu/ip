@@ -234,3 +234,171 @@ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
+
+### UI-007: Reject malformed structured commands
+
+**Aim:** Verify that malformed Deadline and Event commands show specific errors, preserve the task list, and allow later commands to run.
+
+**Inputs:**
+```text
+todo existing task
+deadline submit report
+deadline submit report /by
+deadline /by Friday
+event meeting
+event meeting /from 2pm
+event meeting /to 3pm
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _        
+| |   _   _| | _____ 
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] existing task
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The deadline must include a /by date or time.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The deadline must include a /by date or time.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The description of a deadline cannot be empty.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The event must include a /from start time.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The event must include a /to end time.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The event must include a /from start time.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] existing task
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### UI-008: Reject invalid mark task numbers
+
+**Aim:** Verify that zero, negative, out-of-range, and non-numeric mark arguments leave the task incomplete and do not stop the application.
+
+**Inputs:**
+```text
+todo existing task
+mark 0
+mark -1
+mark 999
+mark abc
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _        
+| |   _   _| | _____ 
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] existing task
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+____________________________________________________________
+____________________________________________________________
+[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+____________________________________________________________
+____________________________________________________________
+[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The task number must be a valid number.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] existing task
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### UI-009: Reject invalid unmark task numbers
+
+**Aim:** Verify that invalid unmark arguments leave a completed task unchanged and do not stop the application.
+
+**Inputs:**
+```text
+todo existing task
+mark 1
+unmark 0
+unmark 999
+unmark abc
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _        
+| |   _   _| | _____ 
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] existing task
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] existing task
+____________________________________________________________
+____________________________________________________________
+[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+____________________________________________________________
+____________________________________________________________
+[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The task number must be a valid number.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X] existing task
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
