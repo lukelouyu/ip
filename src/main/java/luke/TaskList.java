@@ -32,6 +32,7 @@ public class TaskList {
      *
      * @param taskNumber One-based task number.
      * @return Task that was marked.
+     * @throws LukeException If the task number does not refer to an existing task.
      */
     public Task mark(int taskNumber) throws LukeException {
         validateTaskNumber(taskNumber);
@@ -46,6 +47,7 @@ public class TaskList {
      *
      * @param taskNumber One-based task number.
      * @return Task that was unmarked.
+     * @throws LukeException If the task number does not refer to an existing task.
      */
     public Task unmark(int taskNumber) throws LukeException {
         validateTaskNumber(taskNumber);
