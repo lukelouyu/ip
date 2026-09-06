@@ -33,7 +33,9 @@ public class TaskList {
      * @param taskNumber One-based task number.
      * @return Task that was marked.
      */
-    public Task mark(int taskNumber) {
+    public Task mark(int taskNumber) throws LukeException {
+        validateTaskNumber(taskNumber);
+
         Task task = tasks[taskNumber - 1];
         task.markAsDone();
         return task;
@@ -45,10 +47,19 @@ public class TaskList {
      * @param taskNumber One-based task number.
      * @return Task that was unmarked.
      */
-    public Task unmark(int taskNumber) {
+    public Task unmark(int taskNumber) throws LukeException {
+        validateTaskNumber(taskNumber);
+
         Task task = tasks[taskNumber - 1];
         task.markAsNotDone();
         return task;
+    }
+
+    private void validateTaskNumber(int taskNumber) throws LukeException {
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw new LukeException(
+                    "That task number does not exist.");
+        }
     }
 
     /**
