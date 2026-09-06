@@ -18,4 +18,12 @@ public class Todo extends Task {
     protected String getTypeIcon() {
         return "T";
     }
+
+    @Override
+    public String toDataString() {
+        String status = isDone() ? "1" : "0";
+
+        return "T | " + status + " | " + getDescription();
+    }
+
 }
