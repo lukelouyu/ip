@@ -59,26 +59,50 @@ public class Parser {
         return new Deadline(description, by);
     }
 
-    /**
-     * Parses an event command.
-     *
-     * @param command User command.
-     * @return Parsed event.
-     */
-    public static Event parseEvent(String command) {
-        String commandDetails = command.substring(
-                COMMAND_EVENT.length() + COMMAND_SEPARATOR.length());
+    public static Event parseEvent(String command) throws LukeException {
+        String commandDetails = command.substring(COMMAND_EVENT.length()).trim();
+
+        if (commandDetails.isEmpty()) {
+            throw new LukeException(
+                    "The description of an event cannot be empty.");
+        }
 
         String[] eventParts = commandDetails.split(
                 EVENT_FROM_SEPARATOR, SPLIT_LIMIT);
 
-        String description = eventParts[0];
+        if (eventParts.length < 2) {
+            throw new LukeException(
+                    "The event must include a /from start time.");
+        }
 
-        String[] timeParts = eventParts[1].split(
+        String description = eventParts[0].trim();
+        String eventTimeDetails = eventParts[1].trim();
+
+        if (description.isEmpty()) {
+            throw new LukeException(
+                    "The description of an event cannot be empty.");
+        }
+
+        String[] timeParts = eventTimeDetails.split(
                 EVENT_TO_SEPARATOR, SPLIT_LIMIT);
 
-        String from = timeParts[0];
-        String to = timeParts[1];
+        if (timeParts.length < 2) {
+            throw new LukeException(
+                    "The event must include a /to end time.");
+        }
+
+        String from = timeParts[0].trim();
+        String to = timeParts[1].trim();
+
+        if (from.isEmpty()) {
+            throw new LukeException(
+                    "The event start time cannot be empty.");
+        }
+
+        if (to.isEmpty()) {
+            throw new LukeException(
+                    "The event end time cannot be empty.");
+        }
 
         return new Event(description, from, to);
     }
