@@ -21,9 +21,13 @@ public class Parser {
      * @param command User command.
      * @return Parsed todo.
      */
-    public static Todo parseTodo(String command) {
+    public static Todo parseTodo(String command) throws LukeException{
         String description = command.substring(
                 COMMAND_TODO.length() + COMMAND_SEPARATOR.length());
+
+        if (description.isEmpty()) {
+            throw new LukeException("The description of a todo cannot be empty.");
+        }
 
         return new Todo(description);
     }
