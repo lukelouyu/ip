@@ -1,5 +1,7 @@
 package luke;
 
+import java.util.Arrays;
+
 /**
  * Stores and manages the user's tasks.
  */
@@ -66,12 +68,12 @@ public class TaskList {
     }
 
     /**
-     * Returns all stored tasks.
+     * Returns a copy of all stored tasks.
      *
      * @return Array containing the tasks.
      */
     public Task[] getTasks() {
-        return tasks;
+        return Arrays.copyOf(tasks, taskCount);
     }
 
     /**
