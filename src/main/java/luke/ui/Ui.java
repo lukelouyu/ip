@@ -90,11 +90,7 @@ public class Ui {
     }
 
     private static String createHorizontalLine() {
-        StringBuilder horizontalLine = new StringBuilder();
-
-        horizontalLine.append("_".repeat(HORIZONTAL_LINE_LENGTH));
-
-        return horizontalLine.toString();
+        return "_".repeat(HORIZONTAL_LINE_LENGTH);
     }
 
     /**
