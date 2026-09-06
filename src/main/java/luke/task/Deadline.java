@@ -1,4 +1,4 @@
-package luke;
+package luke.task;
 
 /**
  * Represents a task that must be completed by a specific date or time.

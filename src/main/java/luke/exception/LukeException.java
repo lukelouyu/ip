@@ -1,4 +1,4 @@
-package luke;
+package luke.exception;
 
 /**
  * Represents errors caused by invalid user commands.

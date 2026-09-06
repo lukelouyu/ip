@@ -1,4 +1,6 @@
-package luke;
+package luke.ui;
+
+import luke.task.Task;
 
 /**
  * Handles the display of messages to the user.

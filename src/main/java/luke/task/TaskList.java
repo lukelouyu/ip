@@ -1,6 +1,8 @@
-package luke;
+package luke.task;
 
 import java.util.Arrays;
+
+import luke.exception.LukeException;
 
 /**
  * Stores and manages the user's tasks.

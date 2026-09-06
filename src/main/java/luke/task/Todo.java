@@ -1,4 +1,4 @@
-package luke;
+package luke.task;
 
 /**
  * Represents a task without a deadline or scheduled time.
