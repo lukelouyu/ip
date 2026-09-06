@@ -27,7 +27,7 @@ public class Parser {
 
         if (description.isEmpty()) {
             throw new LukeException(
-                    "The description of a todo cannot be empty.");
+                    "[WARNING] The description of a todo cannot be empty.");
         }
 
         return new Todo(description);
@@ -46,7 +46,7 @@ public class Parser {
 
         if (commandDetails.isEmpty()) {
             throw new LukeException(
-                    "The description of a deadline cannot be empty.");
+                    "[WARNING] The description of a deadline cannot be empty.");
         }
 
         String[] deadlineParts = commandDetails.split(
@@ -54,7 +54,7 @@ public class Parser {
 
         if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
             throw new LukeException(
-                    "The deadline must include a /by date or time.");
+                    "[WARNING] The deadline must include a /by date or time.");
         }
 
         String description = deadlineParts[0].trim();
@@ -62,7 +62,7 @@ public class Parser {
 
         if (description.isEmpty()) {
             throw new LukeException(
-                    "The description of a deadline cannot be empty.");
+                    "[WARNING] The description of a deadline cannot be empty.");
         }
 
         return new Deadline(description, by);
@@ -81,7 +81,7 @@ public class Parser {
 
         if (commandDetails.isEmpty()) {
             throw new LukeException(
-                    "The description of an event cannot be empty.");
+                    "[WARNING] The description of an event cannot be empty.");
         }
 
         String[] eventParts = commandDetails.split(
@@ -89,7 +89,7 @@ public class Parser {
 
         if (eventParts.length < 2) {
             throw new LukeException(
-                    "The event must include a /from start time.");
+                    "[WARNING] The event must include a /from start time.");
         }
 
         String description = eventParts[0].trim();
@@ -97,7 +97,7 @@ public class Parser {
 
         if (description.isEmpty()) {
             throw new LukeException(
-                    "The description of an event cannot be empty.");
+                    "[WARNING] The description of an event cannot be empty.");
         }
 
         String[] timeParts = eventTimeDetails.split(
@@ -105,7 +105,7 @@ public class Parser {
 
         if (timeParts.length < 2) {
             throw new LukeException(
-                    "The event must include a /to end time.");
+                    "[WARNING] The event must include a /to end time.");
         }
 
         String from = timeParts[0].trim();
@@ -113,12 +113,12 @@ public class Parser {
 
         if (from.isEmpty()) {
             throw new LukeException(
-                    "The event start time cannot be empty.");
+                    "[WARNING] The event start time cannot be empty.");
         }
 
         if (to.isEmpty()) {
             throw new LukeException(
-                    "The event end time cannot be empty.");
+                    "[WARNING] The event end time cannot be empty.");
         }
 
         return new Event(description, from, to);
@@ -139,14 +139,14 @@ public class Parser {
 
         if (taskNumberText.isEmpty()) {
             throw new LukeException(
-                    "Please specify a task number.");
+                    "[WARNING] Please specify a task number.");
         }
 
         try {
             return Integer.parseInt(taskNumberText);
         } catch (NumberFormatException e) {
             throw new LukeException(
-                    "The task number must be a valid number.");
+                    "[WARNING] The task number must be a valid number.");
         }
     }
 
