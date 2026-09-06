@@ -104,4 +104,13 @@ public class Ui {
         System.out.println("Sorry, your command is unrecognized.");
     }
 
+    /**
+     * Shows an error message.
+     *
+     * @param message Error message to display.
+     */
+    public static void showError(String message) {
+        System.out.println(message);
+    }
+
 }

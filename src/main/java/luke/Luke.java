@@ -28,7 +28,13 @@ public class Luke {
 
         while (!command.equals("bye")) {
             Ui.showHorizontalLine();
-            processCommand(command, tasks);
+
+            try {
+                processCommand(command, tasks);
+            } catch (LukeException e) {
+                Ui.showError(e.getMessage());
+            }
+
             Ui.showHorizontalLine();
             command = input.nextLine();
         }
@@ -36,7 +42,8 @@ public class Luke {
         Ui.showGoodbye();
     }
 
-    private static void processCommand(String command, TaskList tasks) {
+    private static void processCommand(String command, TaskList tasks)
+            throws LukeException {
         String commandWord = Parser.parseCommandWord(command);
 
         switch (commandWord) {
