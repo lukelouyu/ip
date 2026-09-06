@@ -1,4 +1,4 @@
-package luke;
+package luke.task;
 
 /**
  * Represents a task scheduled between a start and end time.

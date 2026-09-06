@@ -1,4 +1,9 @@
-package luke;
+package luke.parser;
+
+import luke.exception.LukeException;
+import luke.task.Deadline;
+import luke.task.Event;
+import luke.task.Todo;
 
 /**
  * Parses user commands into task objects and command parameters.
