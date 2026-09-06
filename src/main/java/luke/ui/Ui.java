@@ -83,6 +83,23 @@ public class Ui {
     }
 
     /**
+     * Shows the task that was deleted and the remaining task count.
+     *
+     * @param task Task that was deleted.
+     * @param taskCount Number of tasks remaining.
+     */
+    public static void showTaskDeleted(Task task, int taskCount) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task);
+
+        if (taskCount == 1) {
+            System.out.println("Now you have 1 task in the list.");
+        } else {
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
+        }
+    }
+
+    /**
      * Shows a horizontal line separating output sections.
      */
     public static void showHorizontalLine() {
