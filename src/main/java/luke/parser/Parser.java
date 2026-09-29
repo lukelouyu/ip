@@ -1,5 +1,9 @@
 package luke.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import luke.command.AddCommand;
 import luke.command.Command;
 import luke.command.DeleteCommand;
@@ -11,6 +15,7 @@ import luke.exception.LukeException;
 import luke.task.Deadline;
 import luke.task.Event;
 import luke.task.Todo;
+import luke.util.DateTimeUtil;
 
 /**
  * Parses user commands into task objects and command parameters.
@@ -126,14 +131,20 @@ public class Parser {
         }
 
         String description = deadlineParts[0].trim();
-        String by = deadlineParts[1].trim();
+        String byText = deadlineParts[1].trim();
 
         if (description.isEmpty()) {
             throw new LukeException(
                     "The description of a deadline cannot be empty.");
         }
 
-        return new Deadline(description, by);
+        try {
+            LocalDate by = DateTimeUtil.parseDate(byText);
+            return new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            throw new LukeException(
+                    "The deadline date must be in yyyy-MM-dd format.");
+        }
     }
 
     /**
@@ -176,20 +187,33 @@ public class Parser {
                     "The event must include a /to end time.");
         }
 
-        String from = timeParts[0].trim();
-        String to = timeParts[1].trim();
+        String fromText = timeParts[0].trim();
+        String toText = timeParts[1].trim();
 
-        if (from.isEmpty()) {
+        if (fromText.isEmpty()) {
             throw new LukeException(
                     "The event start time cannot be empty.");
         }
 
-        if (to.isEmpty()) {
+        if (toText.isEmpty()) {
             throw new LukeException(
                     "The event end time cannot be empty.");
         }
 
-        return new Event(description, from, to);
+        try {
+            LocalDateTime from = DateTimeUtil.parseDateTime(fromText);
+            LocalDateTime to = DateTimeUtil.parseDateTime(toText);
+
+            if (!to.isAfter(from)) {
+                throw new LukeException(
+                        "The event end time must be after its start time.");
+            }
+
+            return new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new LukeException(
+                    "The event date and time must be in yyyy-MM-dd HH:mm format.");
+        }
     }
 
     /**

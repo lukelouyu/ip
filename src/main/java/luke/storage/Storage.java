@@ -12,6 +12,7 @@ import luke.task.Event;
 import luke.task.Task;
 import luke.task.TaskList;
 import luke.task.Todo;
+import luke.util.DateTimeUtil;
 /**
  * Handles saving and loading tasks from the data file.
  */
@@ -69,8 +70,14 @@ public class Storage {
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            Task task = createTaskFromData(line);
-            tasks.add(task);
+
+            try {
+                Task task = createTaskFromData(line);
+                tasks.add(task);
+            } catch (RuntimeException e) {
+                scanner.close();
+                throw new IOException("Invalid task data: " + line, e);
+            }
         }
 
         scanner.close();
@@ -97,11 +104,14 @@ public class Storage {
             break;
 
         case "D":
-            task = new Deadline(description, parts[3]);
+            task = new Deadline(description, DateTimeUtil.parseDate(parts[3]));
             break;
 
         case "E":
-            task = new Event(description, parts[3], parts[4]);
+            task = new Event(
+                    description,
+                    DateTimeUtil.parseDateTime(parts[3]),
+                    DateTimeUtil.parseDateTime(parts[4]));
             break;
 
         default:

@@ -79,7 +79,7 @@ ____________________________________________________________
 
 **Inputs:**
 ```text
-deadline return book /by Sunday
+deadline return book /by 2026-10-02
 bye
 ```
 
@@ -97,7 +97,7 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -111,7 +111,7 @@ ____________________________________________________________
 
 **Inputs:**
 ```text
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2026-10-01 14:00 /to 2026-10-01 15:00
 bye
 ```
 
@@ -129,7 +129,7 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -144,8 +144,8 @@ ____________________________________________________________
 **Inputs:**
 ```text
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2026-10-02
+event project meeting /from 2026-10-01 14:00 /to 2026-10-01 15:00
 list
 bye
 ```
@@ -169,19 +169,19 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: Oct 02 2026)
+3. [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
@@ -194,7 +194,7 @@ ____________________________________________________________
 
 **Inputs:**
 ```text
-deadline return book /by Sunday
+deadline return book /by 2026-10-02
 mark 1
 unmark 1
 list
@@ -215,20 +215,20 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D][X] return book (by: Sunday)
+  [D][X] return book (by: Oct 02 2026)
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book (by: Sunday)
+1. [D][ ] return book (by: Oct 02 2026)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
@@ -397,6 +397,56 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] existing task
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### UI-010: Reject invalid dates and event ranges
+
+**Aim:** Verify that invalid calendar values, formats, and event ranges do not add tasks.
+
+**Inputs:**
+```text
+deadline invalid date /by 2026-02-30
+deadline wrong format /by 30-02-2026
+event equal times /from 2026-10-01 14:00 /to 2026-10-01 14:00
+event backwards /from 2026-10-01 15:00 /to 2026-10-01 14:00
+event invalid time /from 2026-10-01 25:00 /to 2026-10-01 26:00
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _        
+| |   _   _| | _____ 
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+[WARNING] The deadline date must be in yyyy-MM-dd format.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The deadline date must be in yyyy-MM-dd format.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The event end time must be after its start time.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The event end time must be after its start time.
+____________________________________________________________
+____________________________________________________________
+[WARNING] The event date and time must be in yyyy-MM-dd HH:mm format.
+____________________________________________________________
+____________________________________________________________
+There are no tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
