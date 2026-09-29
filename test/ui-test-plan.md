@@ -111,7 +111,7 @@ ____________________________________________________________
 
 **Inputs:**
 ```text
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2026-10-01 14:00 /to 2026-10-01 15:00
 bye
 ```
 
@@ -129,7 +129,7 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -145,7 +145,7 @@ ____________________________________________________________
 ```text
 todo borrow book
 deadline return book /by 2026-10-02
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2026-10-01 14:00 /to 2026-10-01 15:00
 list
 bye
 ```
@@ -174,14 +174,14 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Oct 02 2026)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

@@ -102,7 +102,10 @@ public class Storage {
             break;
 
         case "E":
-            task = new Event(description, parts[3], parts[4]);
+            task = new Event(
+                    description,
+                    DateTimeUtil.parseDateTime(parts[3]),
+                    DateTimeUtil.parseDateTime(parts[4]));
             break;
 
         default:

@@ -1,6 +1,7 @@
 package luke.parser;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import luke.command.AddCommand;
@@ -186,20 +187,33 @@ public class Parser {
                     "The event must include a /to end time.");
         }
 
-        String from = timeParts[0].trim();
-        String to = timeParts[1].trim();
+        String fromText = timeParts[0].trim();
+        String toText = timeParts[1].trim();
 
-        if (from.isEmpty()) {
+        if (fromText.isEmpty()) {
             throw new LukeException(
                     "The event start time cannot be empty.");
         }
 
-        if (to.isEmpty()) {
+        if (toText.isEmpty()) {
             throw new LukeException(
                     "The event end time cannot be empty.");
         }
 
-        return new Event(description, from, to);
+        try {
+            LocalDateTime from = DateTimeUtil.parseDateTime(fromText);
+            LocalDateTime to = DateTimeUtil.parseDateTime(toText);
+
+            if (!to.isAfter(from)) {
+                throw new LukeException(
+                        "The event end time must be after its start time.");
+            }
+
+            return new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new LukeException(
+                    "The event date and time must be in yyyy-MM-dd HH:mm format.");
+        }
     }
 
     /**
