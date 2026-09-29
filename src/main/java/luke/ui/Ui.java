@@ -28,6 +28,11 @@ public class Ui {
         return input.nextLine();
     }
 
+    /**
+     * Returns Luke's text logo.
+     *
+     * @return Multi-line text logo.
+     */
     private static String getLogo() {
         return " _          _        \n"
                 + "| |   _   _| | _____ \n"

@@ -19,6 +19,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the icon that identifies this task's type.
+     *
+     * @return Task-type icon.
+     */
     protected abstract String getTypeIcon();
 
     /**

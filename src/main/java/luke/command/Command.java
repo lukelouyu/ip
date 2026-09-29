@@ -13,6 +13,12 @@ import luke.ui.Ui;
 public abstract class Command {
 
     /**
+     * Creates a command.
+     */
+    protected Command() {
+    }
+
+    /**
      * Executes this command using the application components.
      *
      * @param tasks Task list to query or modify.
