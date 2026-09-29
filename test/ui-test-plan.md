@@ -452,3 +452,110 @@ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
+
+### UI-011: Find matching tasks
+
+**Aim:** Verify that find performs case-insensitive matching, preserves task order, and does not modify tasks.
+
+**Inputs:**
+```text
+todo Read Book
+deadline return book /by 2026-10-02
+event project meeting /from 2026-10-01 14:00 /to 2026-10-01 15:00
+find BOOK
+find meeting
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _        
+| |   _   _| | _____ 
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Read Book
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] return book (by: Oct 02 2026)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [T][ ] Read Book
+2. [D][ ] return book (by: Oct 02 2026)
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] Read Book
+2. [D][ ] return book (by: Oct 02 2026)
+3. [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### UI-012: Handle unsuccessful find commands
+
+**Aim:** Verify that find reports no matches and rejects a missing keyword without changing the task list.
+
+**Inputs:**
+```text
+todo existing task
+find absent
+find
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _        
+| |   _   _| | _____ 
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] existing task
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+There are no matching tasks in your list.
+____________________________________________________________
+____________________________________________________________
+[WARNING] Please specify a search keyword.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] existing task
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
