@@ -1,27 +1,35 @@
 package luke;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
+import luke.command.Command;
 import luke.exception.LukeException;
 import luke.parser.Parser;
 import luke.storage.Storage;
-import luke.task.Task;
 import luke.task.TaskList;
 import luke.ui.Ui;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Scanner;
 
 /**
  * Runs the Luke chatbot's command-line interface.
  */
 public class Luke {
-    private static final String COMMAND_LIST = "list";
-    private static final String COMMAND_TODO = "todo";
-    private static final String COMMAND_DEADLINE = "deadline";
-    private static final String COMMAND_EVENT = "event";
-    private static final String COMMAND_MARK = "mark";
-    private static final String COMMAND_UNMARK = "unmark";
-    private static final String COMMAND_DELETE = "delete";
+    private static final String DEFAULT_DATA_PATH = Path.of("data", "luke.txt").toString();
+
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+
+    /**
+     * Creates Luke using the specified data file.
+     *
+     * @param filePath Path of the data file.
+     */
+    public Luke(String filePath) {
+        storage = new Storage(filePath);
+        tasks = new TaskList();
+        ui = new Ui();
+    }
 
     /**
      * Starts Luke and processes commands until the user exits.
@@ -29,95 +37,51 @@ public class Luke {
      * @param args Command-line arguments; not used.
      */
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        TaskList tasks = new TaskList();
-        Storage storage = new Storage(
-                Path.of("data", "luke.txt").toString());
+        new Luke(DEFAULT_DATA_PATH).run();
+    }
+
+    /**
+     * Loads saved tasks and processes commands until the user exits.
+     */
+    public void run() {
 
         try {
             storage.load(tasks);
         } catch (IOException e) {
-            Ui.showError("Unable to load tasks.");
+            ui.showError("Unable to load tasks.");
         }
 
-        Ui.showWelcome();
+        ui.showWelcome();
 
-        String command = input.nextLine();
+        boolean isExit = false;
 
-        while (!command.equals("bye")) {
-            Ui.showHorizontalLine();
+        while (!isExit) {
+            String input = ui.readCommand();
+            boolean isSeparatorShown = false;
 
             try {
-                processCommand(command, tasks, storage);
+                Command command = Parser.parse(input);
+                isExit = command.isExit();
+
+                if (!isExit) {
+                    ui.showHorizontalLine();
+                    isSeparatorShown = true;
+                    command.execute(tasks, ui, storage);
+                }
             } catch (LukeException e) {
-                Ui.showError(e.getMessage());
+                if (!isSeparatorShown) {
+                    ui.showHorizontalLine();
+                }
+                ui.showError(e.getMessage());
             } catch (IOException e) {
-                Ui.showError("Unable to save tasks.");
+                ui.showError("Unable to save tasks.");
             }
 
-            Ui.showHorizontalLine();
-            command = input.nextLine();
+            if (!isExit) {
+                ui.showHorizontalLine();
+            }
         }
 
-        Ui.showGoodbye();
+        ui.showGoodbye();
     }
-
-    private static void processCommand(String command, TaskList tasks,
-                                       Storage storage)
-            throws LukeException, IOException {
-        String commandWord = Parser.parseCommandWord(command);
-
-        switch (commandWord) {
-        case COMMAND_LIST:
-            Ui.showTaskList(tasks.getTasks(), tasks.getTaskCount());
-            break;
-
-        case COMMAND_TODO:
-            Task todo = Parser.parseTodo(command);
-            tasks.add(todo);
-            storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskAdded(todo, tasks.getTaskCount());
-            break;
-
-        case COMMAND_DEADLINE:
-            Task deadline = Parser.parseDeadline(command);
-            tasks.add(deadline);
-            storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskAdded(deadline, tasks.getTaskCount());
-            break;
-
-        case COMMAND_EVENT:
-            Task event = Parser.parseEvent(command);
-            tasks.add(event);
-            storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskAdded(event, tasks.getTaskCount());
-            break;
-
-        case COMMAND_MARK:
-            int markNumber = Parser.parseTaskNumber(command, COMMAND_MARK);
-            Task markedTask = tasks.mark(markNumber);
-            storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskMarked(markedTask);
-            break;
-
-        case COMMAND_UNMARK:
-            int unmarkNumber = Parser.parseTaskNumber(command, COMMAND_UNMARK);
-            Task unmarkedTask = tasks.unmark(unmarkNumber);
-            storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskUnmarked(unmarkedTask);
-            break;
-
-        case COMMAND_DELETE:
-            int deleteNumber = Parser.parseTaskNumber(command, COMMAND_DELETE);
-            Task deletedTask = tasks.delete(deleteNumber);
-            storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskDeleted(deletedTask, tasks.getTaskCount());
-            break;
-
-        default:
-            throw new LukeException(
-                    "Sorry, your command is unrecognized.");
-        }
-    }
-
 }

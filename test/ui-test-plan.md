@@ -329,13 +329,13 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+[WARNING] That task number does not exist. Please choose a number between 1 and 1.
 ____________________________________________________________
 ____________________________________________________________
-[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+[WARNING] That task number does not exist. Please choose a number between 1 and 1.
 ____________________________________________________________
 ____________________________________________________________
-[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+[WARNING] That task number does not exist. Please choose a number between 1 and 1.
 ____________________________________________________________
 ____________________________________________________________
 [WARNING] The task number must be a valid number.
@@ -386,10 +386,10 @@ Nice! I've marked this task as done:
   [T][X] existing task
 ____________________________________________________________
 ____________________________________________________________
-[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+[WARNING] That task number does not exist. Please choose a number between 1 and 1.
 ____________________________________________________________
 ____________________________________________________________
-[WARNING] That task number does not exist. Please choose the number between 1 and 1.
+[WARNING] That task number does not exist. Please choose a number between 1 and 1.
 ____________________________________________________________
 ____________________________________________________________
 [WARNING] The task number must be a valid number.

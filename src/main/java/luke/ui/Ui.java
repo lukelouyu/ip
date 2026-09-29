@@ -1,5 +1,7 @@
 package luke.ui;
 
+import java.util.Scanner;
+
 import luke.task.Task;
 
 /**
@@ -8,6 +10,23 @@ import luke.task.Task;
 public class Ui {
     private static final int HORIZONTAL_LINE_LENGTH = 60;
     private static final String HORIZONTAL_LINE = createHorizontalLine();
+    private final Scanner input;
+
+    /**
+     * Creates a user interface that reads from the standard input stream.
+     */
+    public Ui() {
+        input = new Scanner(System.in);
+    }
+
+    /**
+     * Reads the next command entered by the user.
+     *
+     * @return User command.
+     */
+    public String readCommand() {
+        return input.nextLine();
+    }
 
     private static String getLogo() {
         return " _          _        \n"
@@ -20,7 +39,7 @@ public class Ui {
     /**
      * Shows the welcome message and logo.
      */
-    public static void showWelcome() {
+    public void showWelcome() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Luke\n" + getLogo());
         System.out.println("What can I do for you?");
@@ -30,7 +49,7 @@ public class Ui {
     /**
      * Shows the goodbye message.
      */
-    public static void showGoodbye() {
+    public void showGoodbye() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
@@ -42,7 +61,7 @@ public class Ui {
      * @param tasks Tasks to display.
      * @param taskCount Number of stored tasks.
      */
-    public static void showTaskList(Task[] tasks, int taskCount) {
+    public void showTaskList(Task[] tasks, int taskCount) {
         if (taskCount == 0) {
             System.out.println("There are no tasks in your list.");
             return;
@@ -61,7 +80,7 @@ public class Ui {
      * @param task      Added task.
      * @param taskCount Updated number of stored tasks.
      */
-    public static void showTaskAdded(Task task, int taskCount) {
+    public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
@@ -72,7 +91,7 @@ public class Ui {
      *
      * @param task Marked task.
      */
-    public static void showTaskMarked(Task task) {
+    public void showTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
@@ -82,7 +101,7 @@ public class Ui {
      *
      * @param task Unmarked task.
      */
-    public static void showTaskUnmarked(Task task) {
+    public void showTaskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
@@ -93,7 +112,7 @@ public class Ui {
      * @param task Task that was deleted.
      * @param taskCount Number of tasks remaining.
      */
-    public static void showTaskDeleted(Task task, int taskCount) {
+    public void showTaskDeleted(Task task, int taskCount) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
 
@@ -107,7 +126,7 @@ public class Ui {
     /**
      * Shows a horizontal line separating output sections.
      */
-    public static void showHorizontalLine() {
+    public void showHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -120,7 +139,7 @@ public class Ui {
      *
      * @param message Error message to display.
      */
-    public static void showError(String message) {
+    public void showError(String message) {
         System.out.println("[WARNING] " + message);
     }
 
