@@ -246,6 +246,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the search keyword from a find command.
+     *
+     * @param command User command.
+     * @return Search keyword.
+     * @throws LukeException If the keyword is empty.
+     */
     private static String parseFindKeyword(String command) throws LukeException {
         String keyword = command.substring(COMMAND_FIND.length()).trim();
 
