@@ -41,6 +41,25 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns tasks whose descriptions contain the specified keyword.
+     * Matching is case-insensitive and preserves task order.
+     *
+     * @param keyword Keyword to find in task descriptions.
+     * @return Matching tasks in their original order.
+     */
+    public Task[] find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks.toArray(new Task[0]);
+    }
+
     private void validateTaskNumber(int taskNumber) throws LukeException {
         if (tasks.isEmpty()) {
             throw new LukeException("There are no tasks in the list.");

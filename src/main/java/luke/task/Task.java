@@ -1,5 +1,7 @@
 package luke.task;
 
+import java.util.Locale;
+
 /**
  * Represents a task and whether it has been completed.
  */
@@ -65,6 +67,19 @@ public abstract class Task {
      */
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    /**
+     * Returns whether the description contains the specified keyword.
+     * Matching is case-insensitive.
+     *
+     * @param keyword Keyword to find in the description.
+     * @return True if the description contains the keyword.
+     */
+    public boolean containsKeyword(String keyword) {
+        String normalizedDescription = description.toLowerCase(Locale.ROOT);
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
+        return normalizedDescription.contains(normalizedKeyword);
     }
 
     @Override

@@ -8,6 +8,7 @@ import luke.command.AddCommand;
 import luke.command.Command;
 import luke.command.DeleteCommand;
 import luke.command.ExitCommand;
+import luke.command.FindCommand;
 import luke.command.ListCommand;
 import luke.command.MarkCommand;
 import luke.command.UnmarkCommand;
@@ -28,6 +29,7 @@ public class Parser {
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String COMMAND_EXIT = "bye";
 
     private static final String COMMAND_SEPARATOR = " ";
@@ -66,6 +68,8 @@ public class Parser {
             return new UnmarkCommand(parseTaskNumber(input, COMMAND_UNMARK));
         case COMMAND_DELETE:
             return new DeleteCommand(parseTaskNumber(input, COMMAND_DELETE));
+        case COMMAND_FIND:
+            return new FindCommand(parseFindKeyword(input));
         default:
             throw new LukeException("Sorry, your command is unrecognized.");
         }
@@ -240,5 +244,15 @@ public class Parser {
             throw new LukeException(
                     "The task number must be a valid number.");
         }
+    }
+
+    private static String parseFindKeyword(String command) throws LukeException {
+        String keyword = command.substring(COMMAND_FIND.length()).trim();
+
+        if (keyword.isEmpty()) {
+            throw new LukeException("Please specify a search keyword.");
+        }
+
+        return keyword;
     }
 }
