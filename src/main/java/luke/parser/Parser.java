@@ -39,6 +39,9 @@ public class Parser {
 
     private static final int SPLIT_LIMIT = 2;
 
+    private Parser() {
+    }
+
     /**
      * Parses user input into a command that Luke can execute.
      *

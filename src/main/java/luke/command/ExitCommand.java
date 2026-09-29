@@ -9,6 +9,12 @@ import luke.ui.Ui;
  */
 public class ExitCommand extends Command {
 
+    /**
+     * Creates a command that exits Luke.
+     */
+    public ExitCommand() {
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         // No action is needed before Luke exits.
