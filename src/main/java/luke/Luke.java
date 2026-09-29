@@ -36,81 +36,81 @@ public class Luke {
         try {
             storage.load(tasks);
         } catch (IOException e) {
-            Ui.showError("Unable to load tasks.");
+            ui.showError("Unable to load tasks.");
         }
 
-        Ui.showWelcome();
+        ui.showWelcome();
 
         String command = ui.readCommand();
 
         while (!command.equals("bye")) {
-            Ui.showHorizontalLine();
+            ui.showHorizontalLine();
 
             try {
-                processCommand(command, tasks, storage);
+                processCommand(command, tasks, storage, ui);
             } catch (LukeException e) {
-                Ui.showError(e.getMessage());
+                ui.showError(e.getMessage());
             } catch (IOException e) {
-                Ui.showError("Unable to save tasks.");
+                ui.showError("Unable to save tasks.");
             }
 
-            Ui.showHorizontalLine();
+            ui.showHorizontalLine();
             command = ui.readCommand();
         }
 
-        Ui.showGoodbye();
+        ui.showGoodbye();
     }
 
     private static void processCommand(String command, TaskList tasks,
-                                       Storage storage)
+                                       Storage storage, Ui ui)
             throws LukeException, IOException {
         String commandWord = Parser.parseCommandWord(command);
 
         switch (commandWord) {
         case COMMAND_LIST:
-            Ui.showTaskList(tasks.getTasks(), tasks.getTaskCount());
+            ui.showTaskList(tasks.getTasks(), tasks.getTaskCount());
             break;
 
         case COMMAND_TODO:
             Task todo = Parser.parseTodo(command);
             tasks.add(todo);
             storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskAdded(todo, tasks.getTaskCount());
+            ui.showTaskAdded(todo, tasks.getTaskCount());
             break;
 
         case COMMAND_DEADLINE:
             Task deadline = Parser.parseDeadline(command);
             tasks.add(deadline);
             storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskAdded(deadline, tasks.getTaskCount());
+            ui.showTaskAdded(deadline, tasks.getTaskCount());
             break;
 
         case COMMAND_EVENT:
             Task event = Parser.parseEvent(command);
             tasks.add(event);
             storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskAdded(event, tasks.getTaskCount());
+            ui.showTaskAdded(event, tasks.getTaskCount());
             break;
 
         case COMMAND_MARK:
             int markNumber = Parser.parseTaskNumber(command, COMMAND_MARK);
             Task markedTask = tasks.mark(markNumber);
             storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskMarked(markedTask);
+            ui.showTaskMarked(markedTask);
             break;
 
         case COMMAND_UNMARK:
             int unmarkNumber = Parser.parseTaskNumber(command, COMMAND_UNMARK);
             Task unmarkedTask = tasks.unmark(unmarkNumber);
             storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskUnmarked(unmarkedTask);
+            ui.showTaskUnmarked(unmarkedTask);
             break;
 
         case COMMAND_DELETE:
             int deleteNumber = Parser.parseTaskNumber(command, COMMAND_DELETE);
             Task deletedTask = tasks.delete(deleteNumber);
             storage.save(tasks.getTasks(), tasks.getTaskCount());
-            Ui.showTaskDeleted(deletedTask, tasks.getTaskCount());
+            ui.showTaskDeleted(deletedTask, tasks.getTaskCount());
             break;
 
         default:
