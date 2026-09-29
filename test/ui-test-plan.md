@@ -79,7 +79,7 @@ ____________________________________________________________
 
 **Inputs:**
 ```text
-deadline return book /by Sunday
+deadline return book /by 2026-10-02
 bye
 ```
 
@@ -97,7 +97,7 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -144,7 +144,7 @@ ____________________________________________________________
 **Inputs:**
 ```text
 todo borrow book
-deadline return book /by Sunday
+deadline return book /by 2026-10-02
 event project meeting /from Mon 2pm /to 4pm
 list
 bye
@@ -169,7 +169,7 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -180,7 +180,7 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 02 2026)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -194,7 +194,7 @@ ____________________________________________________________
 
 **Inputs:**
 ```text
-deadline return book /by Sunday
+deadline return book /by 2026-10-02
 mark 1
 unmark 1
 list
@@ -215,20 +215,20 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D][X] return book (by: Sunday)
+  [D][X] return book (by: Oct 02 2026)
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Oct 02 2026)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book (by: Sunday)
+1. [D][ ] return book (by: Oct 02 2026)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

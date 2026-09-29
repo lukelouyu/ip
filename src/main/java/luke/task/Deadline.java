@@ -1,18 +1,22 @@
 package luke.task;
 
+import java.time.LocalDate;
+
+import luke.util.DateTimeUtil;
+
 /**
  * Represents a task that must be completed by a specific date or time.
  */
 public class Deadline extends Task {
-    private final String by;
+    private final LocalDate by;
 
     /**
      * Creates an incomplete deadline.
      *
      * @param description Description of the deadline.
-     * @param by          Due date or time of the deadline.
+     * @param by Due date of the deadline.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -24,7 +28,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + DateTimeUtil.formatDate(by) + ")";
     }
 
     @Override

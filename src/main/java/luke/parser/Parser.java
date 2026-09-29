@@ -1,5 +1,8 @@
 package luke.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import luke.command.AddCommand;
 import luke.command.Command;
 import luke.command.DeleteCommand;
@@ -11,6 +14,7 @@ import luke.exception.LukeException;
 import luke.task.Deadline;
 import luke.task.Event;
 import luke.task.Todo;
+import luke.util.DateTimeUtil;
 
 /**
  * Parses user commands into task objects and command parameters.
@@ -126,14 +130,20 @@ public class Parser {
         }
 
         String description = deadlineParts[0].trim();
-        String by = deadlineParts[1].trim();
+        String byText = deadlineParts[1].trim();
 
         if (description.isEmpty()) {
             throw new LukeException(
                     "The description of a deadline cannot be empty.");
         }
 
-        return new Deadline(description, by);
+        try {
+            LocalDate by = DateTimeUtil.parseDate(byText);
+            return new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            throw new LukeException(
+                    "The deadline date must be in yyyy-MM-dd format.");
+        }
     }
 
     /**

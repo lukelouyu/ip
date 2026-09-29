@@ -12,6 +12,7 @@ import luke.task.Event;
 import luke.task.Task;
 import luke.task.TaskList;
 import luke.task.Todo;
+import luke.util.DateTimeUtil;
 /**
  * Handles saving and loading tasks from the data file.
  */
@@ -97,7 +98,7 @@ public class Storage {
             break;
 
         case "D":
-            task = new Deadline(description, parts[3]);
+            task = new Deadline(description, DateTimeUtil.parseDate(parts[3]));
             break;
 
         case "E":

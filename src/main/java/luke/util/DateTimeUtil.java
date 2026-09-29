@@ -3,15 +3,18 @@ package luke.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 /**
  * Parses and formats dates and times used by Luke.
  */
 public final class DateTimeUtil {
     private static final DateTimeFormatter INPUT_DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("uuuu-MM-dd");
+            DateTimeFormatter.ofPattern("uuuu-MM-dd")
+                    .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
+            DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")
+                    .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter DISPLAY_DATE_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd uuuu");
     private static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER =
