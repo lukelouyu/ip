@@ -9,7 +9,6 @@ import luke.ui.Ui;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Scanner;
 
 /**
  * Runs the Luke chatbot's command-line interface.
@@ -29,7 +28,7 @@ public class Luke {
      * @param args Command-line arguments; not used.
      */
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        Ui ui = new Ui();
         TaskList tasks = new TaskList();
         Storage storage = new Storage(
                 Path.of("data", "luke.txt").toString());
@@ -42,7 +41,7 @@ public class Luke {
 
         Ui.showWelcome();
 
-        String command = input.nextLine();
+        String command = ui.readCommand();
 
         while (!command.equals("bye")) {
             Ui.showHorizontalLine();
@@ -56,7 +55,7 @@ public class Luke {
             }
 
             Ui.showHorizontalLine();
-            command = input.nextLine();
+            command = ui.readCommand();
         }
 
         Ui.showGoodbye();

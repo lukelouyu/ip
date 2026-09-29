@@ -1,5 +1,7 @@
 package luke.ui;
 
+import java.util.Scanner;
+
 import luke.task.Task;
 
 /**
@@ -8,6 +10,23 @@ import luke.task.Task;
 public class Ui {
     private static final int HORIZONTAL_LINE_LENGTH = 60;
     private static final String HORIZONTAL_LINE = createHorizontalLine();
+    private final Scanner input;
+
+    /**
+     * Creates a user interface that reads from the standard input stream.
+     */
+    public Ui() {
+        input = new Scanner(System.in);
+    }
+
+    /**
+     * Reads the next command entered by the user.
+     *
+     * @return User command.
+     */
+    public String readCommand() {
+        return input.nextLine();
+    }
 
     private static String getLogo() {
         return " _          _        \n"
