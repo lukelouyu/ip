@@ -270,27 +270,28 @@ def run_test_case(
     timeout_seconds: float,
 ) -> bool:
     """Runs one test case and returns whether it passed."""
-    try:
-        completed = subprocess.run(
-            [java, "-cp", str(classes_dir), MAIN_CLASS],
-            cwd=project_root,
-            input=test_case.inputs,
-            capture_output=True,
-            text=True,
-            check=False,
-            timeout=timeout_seconds,
-        )
-    except subprocess.TimeoutExpired as error:
-        actual_output = decode_captured_output(error.stdout)
-        stderr = decode_captured_output(error.stderr)
-        report_failure(
-            test_case,
-            actual_output,
-            test_case.expected_output,
-            stderr,
-            f"program exceeded the {timeout_seconds:g}-second timeout",
-        )
-        return False
+    with tempfile.TemporaryDirectory(prefix="luke-ui-case-") as case_dir:
+        try:
+            completed = subprocess.run(
+                [java, "-cp", str(classes_dir), MAIN_CLASS],
+                cwd=case_dir,
+                input=test_case.inputs,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=timeout_seconds,
+            )
+        except subprocess.TimeoutExpired as error:
+            actual_output = decode_captured_output(error.stdout)
+            stderr = decode_captured_output(error.stderr)
+            report_failure(
+                test_case,
+                actual_output,
+                test_case.expected_output,
+                stderr,
+                f"program exceeded the {timeout_seconds:g}-second timeout",
+            )
+            return False
 
     actual_output = normalize_line_endings(completed.stdout)
     stderr = normalize_line_endings(completed.stderr)
