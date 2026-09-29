@@ -1,5 +1,12 @@
 package luke.parser;
 
+import luke.command.AddCommand;
+import luke.command.Command;
+import luke.command.DeleteCommand;
+import luke.command.ExitCommand;
+import luke.command.ListCommand;
+import luke.command.MarkCommand;
+import luke.command.UnmarkCommand;
 import luke.exception.LukeException;
 import luke.task.Deadline;
 import luke.task.Event;
@@ -12,6 +19,11 @@ public class Parser {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_EXIT = "bye";
 
     private static final String COMMAND_SEPARATOR = " ";
     private static final String DEADLINE_SEPARATOR = "/by";
@@ -19,6 +31,40 @@ public class Parser {
     private static final String EVENT_TO_SEPARATOR = "/to";
 
     private static final int SPLIT_LIMIT = 2;
+
+    /**
+     * Parses user input into a command that Luke can execute.
+     *
+     * @param input User input.
+     * @return Parsed command.
+     * @throws LukeException If the command or its arguments are invalid.
+     */
+    public static Command parse(String input) throws LukeException {
+        if (input.equals(COMMAND_EXIT)) {
+            return new ExitCommand();
+        }
+
+        String commandWord = parseCommandWord(input);
+
+        switch (commandWord) {
+        case COMMAND_LIST:
+            return new ListCommand();
+        case COMMAND_TODO:
+            return new AddCommand(parseTodo(input));
+        case COMMAND_DEADLINE:
+            return new AddCommand(parseDeadline(input));
+        case COMMAND_EVENT:
+            return new AddCommand(parseEvent(input));
+        case COMMAND_MARK:
+            return new MarkCommand(parseTaskNumber(input, COMMAND_MARK));
+        case COMMAND_UNMARK:
+            return new UnmarkCommand(parseTaskNumber(input, COMMAND_UNMARK));
+        case COMMAND_DELETE:
+            return new DeleteCommand(parseTaskNumber(input, COMMAND_DELETE));
+        default:
+            throw new LukeException("Sorry, your command is unrecognized.");
+        }
+    }
 
     /**
      * Extracts the command word from a user command.
