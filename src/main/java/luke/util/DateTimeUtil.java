@@ -62,4 +62,14 @@ public final class DateTimeUtil {
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DISPLAY_DATE_TIME_FORMATTER);
     }
+
+    /**
+     * Formats a date and time for persistent storage.
+     *
+     * @param dateTime Date and time to format.
+     * @return Date-time text that Luke can parse when loading tasks.
+     */
+    public static String formatDateTimeForStorage(LocalDateTime dateTime) {
+        return dateTime.format(INPUT_DATE_TIME_FORMATTER);
+    }
 }

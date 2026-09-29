@@ -42,7 +42,7 @@ public class Event extends Task {
 
         return "E | " + status
                 + " | " + getDescription()
-                + " | " + from
-                + " | " + to;
+                + " | " + DateTimeUtil.formatDateTimeForStorage(from)
+                + " | " + DateTimeUtil.formatDateTimeForStorage(to);
     }
 }

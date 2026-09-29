@@ -70,8 +70,14 @@ public class Storage {
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            Task task = createTaskFromData(line);
-            tasks.add(task);
+
+            try {
+                Task task = createTaskFromData(line);
+                tasks.add(task);
+            } catch (RuntimeException e) {
+                scanner.close();
+                throw new IOException("Invalid task data: " + line, e);
+            }
         }
 
         scanner.close();
