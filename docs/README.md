@@ -5,6 +5,7 @@ Luke is a command-line task manager that helps you record todos, deadlines, and 
 ## Contents
 
 - [Quick start](#quick-start)
+- [Starting Luke](#starting-luke)
 - [Reading the task list](#reading-the-task-list)
 - [Command syntax](#command-syntax)
 - [Adding a todo: `todo`](#adding-a-todo-todo)
@@ -40,6 +41,23 @@ Luke is a command-line task manager that helps you record todos, deadlines, and 
    ```
 
 7. Enter `bye` when you are ready to exit.
+
+## Starting Luke
+
+After launching `Luke.jar`, Luke displays this welcome screen and waits for your command:
+
+```text
+____________________________________________________________
+Hello! I'm Luke
+ _          _
+| |   _   _| | _____
+| |  | | | | |/ / _ \
+| |__| |_| |   <  __/
+|_____\__,_|_|\_\___|
+
+What can I do for you?
+____________________________________________________________
+```
 
 ## Reading the task list
 
@@ -78,6 +96,14 @@ Example: `todo borrow a library book`
 
 Luke adds an incomplete todo named "borrow a library book".
 
+```text
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] borrow a library book
+Now you have 1 tasks in the list.
+____________________________________________________________
+```
+
 ## Adding a deadline: `deadline`
 
 Adds a task that must be completed by a specified date.
@@ -92,6 +118,14 @@ Format: `deadline DESCRIPTION /by DATE`
 Example: `deadline return library book /by 2026-10-02`
 
 Luke adds an incomplete deadline due on 2 October 2026.
+
+```text
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] return library book (by: Oct 02 2026)
+Now you have 1 tasks in the list.
+____________________________________________________________
+```
 
 ## Adding an event: `event`
 
@@ -109,6 +143,14 @@ Example: `event project meeting /from 2026-10-01 14:00 /to 2026-10-01 15:00`
 
 Luke adds an incomplete event scheduled from 2:00 pm to 3:00 pm on 1 October 2026.
 
+```text
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
+Now you have 1 tasks in the list.
+____________________________________________________________
+```
+
 ## Listing tasks: `list`
 
 Shows every stored task in its current order.
@@ -124,8 +166,12 @@ Example: `list`
 Luke displays output similar to:
 
 ```text
+____________________________________________________________
+Here are the tasks in your list:
 1. [T][ ] borrow a library book
 2. [D][X] return library book (by: Oct 02 2026)
+3. [E][ ] project meeting (from: Oct 01 2026 14:00 to: Oct 01 2026 15:00)
+____________________________________________________________
 ```
 
 ## Marking a task as done: `mark`
@@ -139,7 +185,14 @@ Format: `mark TASK_NUMBER`
 
 Example: `mark 2`
 
-Luke marks task 2 as done and displays it with `[X]`.
+Assuming task 2 is the deadline from the earlier example, Luke marks it as done and displays it with `[X]`.
+
+```text
+____________________________________________________________
+Nice! I've marked this task as done:
+  [D][X] return library book (by: Oct 02 2026)
+____________________________________________________________
+```
 
 ## Marking a task as not done: `unmark`
 
@@ -152,7 +205,15 @@ Format: `unmark TASK_NUMBER`
 
 Example: `unmark 2`
 
-Luke marks task 2 as not done and displays it with `[ ]`.
+Assuming task 2 is the completed deadline from the earlier example, Luke marks it as not done and displays it with
+`[ ]`.
+
+```text
+____________________________________________________________
+OK, I've marked this task as not done yet:
+  [D][ ] return library book (by: Oct 02 2026)
+____________________________________________________________
+```
 
 ## Deleting a task: `delete`
 
@@ -167,6 +228,14 @@ Format: `delete TASK_NUMBER`
 Example: `delete 1`
 
 Luke removes task 1 and reports the number of remaining tasks.
+
+```text
+____________________________________________________________
+Noted. I've removed this task:
+  [T][ ] borrow a library book
+Now you have 2 tasks in the list.
+____________________________________________________________
+```
 
 ## Finding tasks: `find`
 
@@ -185,6 +254,14 @@ Example: `find book`
 
 Luke displays every task whose description contains "book", regardless of capitalization.
 
+```text
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [T][ ] borrow a library book
+2. [D][ ] return library book (by: Oct 02 2026)
+____________________________________________________________
+```
+
 ## Exiting Luke: `bye`
 
 Ends the current Luke session.
@@ -194,6 +271,12 @@ Format: `bye`
 Example: `bye`
 
 Luke displays its goodbye message and exits.
+
+```text
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
 
 ## Data and persistence
 
